@@ -39,6 +39,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="types_count" class="col-sm-3 col-form-label" >{{ __('Type')}}</label>
+                        <div class="col-md-6">
+                            <p>{{$types_count}}</p>
+                        </div>
+                    </div>
+
+
                     <a class="btn btn-info" href="{{route('company.index') }}">Back To Companies List</a>
 
                 </div>

@@ -66,7 +66,12 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        return view ("company.show", ["company"=>$company]);
+        //return view ("company.show", ["company"=>$company]);
+
+        $types = $company->companyTypes;
+        $types_count = $types->count();
+        return view("company.show",["company"=>$company, "types"=> $types, "types_count" => $types_count]);
+
     }
 
     /**
@@ -111,9 +116,18 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Company $company, Request $request)
     {
+        //$company->delete();
+        //return redirect()->route("company.index");
+        $types_count = $company->companyTypes->count();
+
+
+        if($types_count!=0) {
+            return redirect()->route("company.index")->with('error_message','The Company cannot be deleted because he has a type');
+        }
+
         $company->delete();
-        return redirect()->route("company.index");
+        return redirect()->route("company.index")->with('success_message','The Company was successfully deleted');
     }
 }

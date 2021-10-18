@@ -21,15 +21,31 @@
             <th>ID</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Type</th>
             <th>Actions</th>
+        </tr>
 
+        {{--tikrinama- kokia yra sesija ir tada atvaizduojama atitinkama zinute--}}
+        @if(session()->has('error_message'))
+            <div class="alert alert-danger">
+                {{session()->get("error_message")}}
+            </div>
+        @endif
+
+        @if(session()->has('success_message'))
+            <div class="alert alert-success">
+                {{session()->get("success_message")}}
+            </div>
+        @endif
 
         @foreach ($companies as $company)
 
-            </tr>
+
                     <td>{{$company->id}}</td>
                     <td>{{$company->title}}</td>
                     <td>{{$company->description}}</td>
+                    {{--kokiam tipui priklauso Company--}}
+                    <td>{{$company->companyTypes->count()}}</td>
 
 
                     <td>
@@ -43,16 +59,15 @@
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
 
-
                     </td>
-            </tr>
+        </tr>
 
         @endforeach
-
 
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
